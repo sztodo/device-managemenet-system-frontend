@@ -6,10 +6,11 @@ import { ToastService } from '../../shared/services/toast.service';
 import { Device, DeviceType } from '../../core/models/device.model';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog.component/confirm-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-device-list.component',
-  imports: [CommonModule, FormsModule, ConfirmDialogComponent],
+  imports: [CommonModule, FormsModule, ConfirmDialogComponent, MatIconModule],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.scss',
 })

@@ -74,7 +74,7 @@
 
     .icon-btn {
       width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
-      background: var(--bg); cursor: pointer; font-size: 0.9rem;
+      background: var(--light-bg); cursor: pointer; font-size: 0.9rem;
       display: flex; align-items: center; justify-content: center; transition: all 0.2s;
     }
     .icon-btn--edit:hover { background: var(--accent); border-color: var(--accent); color: #fff; }

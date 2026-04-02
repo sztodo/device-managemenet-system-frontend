@@ -8,7 +8,7 @@
       </p>
     </div>
     <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
-      <span>＋</span> Add Device
+      <mat-icon>add</mat-icon> Add Device
     </button>
   </div>
 
@@ -35,14 +35,14 @@
         [class.chip--active]="activeFilter() === 'phone'"
         (click)="activeFilter.set('phone')"
       >
-        📱 Phones
+        <mat-icon>smartphone</mat-icon> Phones
       </button>
       <button
         class="chip"
         [class.chip--active]="activeFilter() === 'tablet'"
         (click)="activeFilter.set('tablet')"
       >
-        📟 Tablets
+        <mat-icon>tablet</mat-icon> Tablets
       </button>
       <button
         class="chip"
@@ -59,7 +59,6 @@
       <div class="spinner"></div>
       <span>Loading devices...</span>
     </div>
-
   } @else if (filteredDevices().length === 0) {
     <div class="empty">
       <div class="empty__icon">📦</div>
@@ -69,14 +68,17 @@
         Add your first device
       </button>
     </div>
-
   } @else {
     <div class="device-grid">
       @for (device of filteredDevices(); track device.id) {
         <div class="device-card" (click)="router.navigate(['/devices', device.id])">
           <div class="device-card__header">
             <span class="device-card__type-badge">
-              {{ device.type === DeviceType.Phone ? '📱' : '📟' }}
+              @if (device.type === DeviceType.Phone) {
+                <mat-icon>smartphone</mat-icon>
+              } @else {
+                <mat-icon>tablet</mat-icon>
+              }
               {{ device.typeLabel }}
             </span>
             <div class="device-card__actions" (click)="$event.stopPropagation()">
@@ -85,14 +87,14 @@
                 title="Edit"
                 (click)="router.navigate(['/devices', device.id, 'edit'])"
               >
-                ✎
+                <mat-icon>edit</mat-icon>
               </button>
               <button
                 class="icon-btn icon-btn--delete"
                 title="Delete"
                 (click)="confirmDelete(device)"
               >
-                🗑
+                <mat-icon>delete</mat-icon>
               </button>
             </div>
           </div>
