@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-confirm-dialog',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './confirm-dialog.component.html',
   styleUrl: './confirm-dialog.component.scss',
 })
@@ -15,6 +16,10 @@ export class ConfirmDialogComponent {
   confirmed = output<void>();
   cancelled = output<void>();
 
-  onConfirm(): void { this.confirmed.emit(); }
-  onCancel(): void  { this.cancelled.emit(); }
+  onConfirm(): void {
+    this.confirmed.emit();
+  }
+  onCancel(): void {
+    this.cancelled.emit();
+  }
 }

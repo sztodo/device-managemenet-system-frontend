@@ -3,12 +3,18 @@ export enum DeviceType {
   Tablet = 2
 }
 
+export enum DeviceTypeLabel {
+  Phone = 'Phone',
+  Tablet = 'Tablet'
+}
+
+
 export interface Device {
   id: number;
   name: string;
   manufacturer: string;
   type: DeviceType;
-  typeLabel: string;
+  typeLabel: DeviceTypeLabel;
   operatingSystem: string;
   osVersion: string;
   processor: string;

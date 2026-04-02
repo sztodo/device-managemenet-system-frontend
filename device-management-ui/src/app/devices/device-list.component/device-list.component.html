@@ -61,7 +61,7 @@
     </div>
   } @else if (filteredDevices().length === 0) {
     <div class="empty">
-      <div class="empty__icon">📦</div>
+      <div class="empty__icon"><mat-icon>markunread_mailbox</mat-icon></div>
       <h3 class="empty__title">No devices found</h3>
       <p class="empty__text">Try adjusting your search or filters.</p>
       <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
@@ -74,7 +74,7 @@
         <div class="device-card" (click)="router.navigate(['/devices', device.id])">
           <div class="device-card__header">
             <span class="device-card__type-badge">
-              @if (device.type === DeviceType.Phone) {
+              @if (device.typeLabel === DeviceTypeLabel.Phone) {
                 <mat-icon>smartphone</mat-icon>
               } @else {
                 <mat-icon>tablet</mat-icon>
