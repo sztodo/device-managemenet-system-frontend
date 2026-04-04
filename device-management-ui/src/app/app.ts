@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Toast } from './shared/components/toast/toast';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('device-management-ui');
+    protected readonly authService = inject(AuthService);
+
 }
