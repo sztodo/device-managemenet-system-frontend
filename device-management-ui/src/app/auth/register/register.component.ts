@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
@@ -19,7 +20,7 @@ function passwordMatchValidator(group: AbstractControl): ValidationErrors | null
 
 @Component({
   selector: 'app-register.component',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatIconModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

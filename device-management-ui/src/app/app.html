@@ -36,7 +36,9 @@
             </span>
           </div>
         </div>
-        <button class="sidebar__logout" (click)="authService.logout()" title="Sign out">⎋</button>
+        <button class="sidebar__logout" (click)="authService.logout()" title="Sign out">
+          <mat-icon>logout</mat-icon>
+        </button>
       </div>
     </aside>
 
@@ -45,7 +47,6 @@
     </main>
   </div>
 } @else {
-  <!-- No sidebar on auth pages -->
   <router-outlet />
 }
 

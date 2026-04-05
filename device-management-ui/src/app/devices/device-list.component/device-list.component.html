@@ -7,14 +7,16 @@
         use · {{ deviceService.unassignedDevices().length }} available
       </p>
     </div>
-    <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
-      <mat-icon>add</mat-icon> Add Device
-    </button>
+    @if (authService.isAdmin()) {
+      <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
+        <mat-icon>add</mat-icon> Add Device
+      </button>
+    }
   </div>
 
   <div class="filters">
     <div class="search-box">
-      <span class="search-box__icon">⌕</span>
+      <span class="search-box__icon"><mat-icon>search</mat-icon></span>
       <input
         class="search-box__input"
         type="text"
@@ -64,9 +66,11 @@
       <div class="empty__icon"><mat-icon>markunread_mailbox</mat-icon></div>
       <h3 class="empty__title">No devices found</h3>
       <p class="empty__text">Try adjusting your search or filters.</p>
-      <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
-        Add your first device
-      </button>
+      @if (authService.isAdmin()) {
+        <button class="btn btn--primary" (click)="router.navigate(['/devices/new'])">
+          Add your first device
+        </button>
+      }
     </div>
   } @else {
     <div class="device-grid">
@@ -82,20 +86,24 @@
               {{ device.typeLabel }}
             </span>
             <div class="device-card__actions" (click)="$event.stopPropagation()">
-              <button
-                class="icon-btn icon-btn--edit"
-                title="Edit"
-                (click)="router.navigate(['/devices', device.id, 'edit'])"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button
-                class="icon-btn icon-btn--delete"
-                title="Delete"
-                (click)="confirmDelete(device)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
+              @if (authService.isAdmin()) {
+                <button
+                  class="icon-btn icon-btn--edit"
+                  title="Edit"
+                  (click)="router.navigate(['/devices', device.id, 'edit'])"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              }
+              @if (isAssignedToMe(device.assignedUserId)) {
+                <button
+                  class="icon-btn icon-btn--delete"
+                  title="Delete"
+                  (click)="confirmDelete(device)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
             </div>
           </div>
 
@@ -127,7 +135,7 @@
 <app-confirm-dialog
   [visible]="showDeleteDialog()"
   [title]="'Delete ' + (deviceToDelete()?.name ?? '')"
-  message="This device will be permanently removed from the system."
+  [message]="message"
   (confirmed)="onDeleteConfirmed()"
   (cancelled)="showDeleteDialog.set(false)"
 />

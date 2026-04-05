@@ -1,13 +1,12 @@
 <div class="auth-shell">
   <div class="auth-card">
     <div class="auth-card__brand">
-      <div class="auth-card__logo">⚡</div>
+      <div class="auth-card__logo"><mat-icon>electric_bolt</mat-icon></div>
       <h1 class="auth-card__title">Create account</h1>
       <p class="auth-card__subtitle">Join DevTrack to manage devices</p>
     </div>
 
     <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <!-- Account section -->
       <div class="form-section-label">Account</div>
 
       <div class="form-field">
@@ -39,7 +38,11 @@
             class="input-wrap__toggle"
             (click)="showPassword.set(!showPassword())"
           >
-            {{ showPassword() ? '🙈' : '👁' }}
+            @if (showPassword()) {
+              <mat-icon>visibility_off</mat-icon>
+            } @else {
+              <mat-icon>visibility</mat-icon>
+            }
           </button>
         </div>
         @if (isInvalid('password')) {
@@ -74,7 +77,6 @@
         </div>
       }
 
-      <!-- Profile section -->
       <div class="form-section-label" style="margin-top: 0.5rem">Profile</div>
 
       <div class="form-field">

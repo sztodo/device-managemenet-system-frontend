@@ -8,8 +8,9 @@ import { apiInterceptor } from './core/interceptors/api-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([apiInterceptor])),
+    provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptors([apiInterceptor]))
-  ]
+  ],
 };

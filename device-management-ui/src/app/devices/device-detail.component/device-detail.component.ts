@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DeviceService } from '../../core/services/device.service';
 import { UserService } from '../../core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog.component/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-device-detail.component',
@@ -18,13 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
 export class DeviceDetailComponent implements OnInit {
   protected readonly deviceService = inject(DeviceService);
   protected readonly userService = inject(UserService);
+  protected readonly authService = inject(AuthService);
   protected readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly toast = inject(ToastService);
 
   protected readonly DeviceTypeLabel = DeviceTypeLabel;
   protected readonly showDeleteDialog = signal(false);
-  protected selectedUserId: number | null = null;
+  private readonly currentUserId = computed(() => this.authService.linkedUserId());
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -32,16 +34,23 @@ export class DeviceDetailComponent implements OnInit {
     this.userService.loadAll().subscribe();
   }
 
-  assign(deviceId: number): void {
-    if (!this.selectedUserId) return;
-    this.deviceService.assignUser(deviceId, { userId: this.selectedUserId }).subscribe({
-      next: () => this.toast.success('Device assigned successfully.'),
+  isAssignedToMe(assignedUserId?: number | null): boolean {
+    return (
+      assignedUserId !== null &&
+      assignedUserId !== undefined &&
+      assignedUserId === this.currentUserId()
+    );
+  }
+
+  selfAssign(deviceId: number): void {
+    this.deviceService.selfAssign(deviceId).subscribe({
+      next: () => this.toast.success('Device assigned to you.'),
     });
   }
 
-  unassign(deviceId: number): void {
-    this.deviceService.assignUser(deviceId, { userId: null }).subscribe({
-      next: () => this.toast.success('Device unassigned.'),
+  selfUnassign(deviceId: number): void {
+    this.deviceService.selfUnassign(deviceId).subscribe({
+      next: () => this.toast.success('Device returned successfully.'),
     });
   }
 

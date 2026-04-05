@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../shared/services/toast.service';
-import { Router } from 'express';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login.component',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

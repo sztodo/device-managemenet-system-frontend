@@ -1,7 +1,7 @@
 <div class="auth-shell">
   <div class="auth-card">
     <div class="auth-card__brand">
-      <div class="auth-card__logo">⚡</div>
+      <div class="auth-card__logo"><mat-icon>electric_bolt</mat-icon></div>
       <h1 class="auth-card__title">DevTrack</h1>
       <p class="auth-card__subtitle">Sign in to your account</p>
     </div>
@@ -36,7 +36,11 @@
             class="input-wrap__toggle"
             (click)="showPassword.set(!showPassword())"
           >
-            {{ showPassword() ? '🙈' : '👁' }}
+            @if (showPassword()) {
+              <mat-icon>visibility_off</mat-icon>
+            } @else {
+              <mat-icon>visibility</mat-icon>
+            }
           </button>
         </div>
         @if (isInvalid('password')) {
